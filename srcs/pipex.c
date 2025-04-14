@@ -68,12 +68,13 @@ int	main(int argc, char **argv, char **envp)
 	if (argc < 5)
 		error_handling(data, 6);
 	init_pipex(&data, argc, argv, envp);
-	if (argc == 5)
-		pipex(data);
-	else if (argc > 5)
+	if (argc > 6 && (strcmp("here_doc", argv[1]) == 0))
 	{
-		pipex(data);
+		data.doc_flag = 1;
+		here_doc(data);
 	}
+	else
+		pipex(data);
 	close_fds(data);
 	while (wait(NULL) != -1)
 		;

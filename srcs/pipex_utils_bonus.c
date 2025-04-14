@@ -14,8 +14,14 @@
 
 void	open_files(t_pipex data, int io[2])
 {
-	if (io == NULL)
-		error_handling(data, 7);
+	if (ft_strncmp(data.argv[1], "here_doc", 8) == 0)
+	{
+		io[1] = open(data.argv[data.argc - 1],
+				O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (io[1] == -1)
+			error_handling(data, 3);
+		return ;
+	}
 	io[0] = open(data.argv[1], O_RDONLY);
 	if (io[0] == -1)
 		error_handling(data, 3);

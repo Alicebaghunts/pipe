@@ -20,19 +20,19 @@ char	*future_next_line(char *line)
 
 	i = 0;
 	count = 0;
-	while (line[count] && line[count] != '\n')
-		count++;
-	if (!line[count])
-		return (free(line), line = NULL, NULL);
 	if (line == NULL)
 		return (0);
+	while (line[count] && line[count] != '\n')
+		count++;
+	if (!line[count + 1])
+		return (free(line), line = NULL, NULL);
 	buffer = (char *)malloc(sizeof(char) * (ft_strlen(line) - count));
 	if (buffer == NULL)
 		return (free(line), line = NULL, NULL);
 	while (line[++count])
 		buffer[i++] = line[count];
 	buffer[i] = '\0';
-	return (free (line), buffer);
+	return (free (line), line = NULL, buffer);
 }
 
 char	*ft_cut_str(char *line)
@@ -80,7 +80,7 @@ void	ft_get_line(int fd, char **line)
 		if (bytes == 0)
 			break ;
 		buffer[bytes] = '\0';
-		*line = ft_strjoin (*line, buffer);
+		*line = ft_join (*line, buffer);
 		if (ft_strchr(*line, '\n') != NULL)
 			break ;
 	}

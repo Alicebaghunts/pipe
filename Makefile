@@ -2,7 +2,7 @@ MAKEFLAGS       = --no-print-directory
 
 NAME            = pipex
 
-SRCS            = srcs/pipex_bonus.c srcs/pipex_utils_bonus.c srcs/pipex_utils.c srcs/pipex.c
+SRCS            = srcs/pipex_bonus.c srcs/pipex_utils_bonus.c srcs/pipex_utils.c srcs/pipex.c srcs/pipex_here_doc.c
 OBJS            = ${SRCS:.c=.o}
 
 CC              = cc

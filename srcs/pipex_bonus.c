@@ -39,6 +39,7 @@ void	init_pipex(t_pipex *data, int argc, char **argv, char **envp)
 	data->path = find_paths(envp);
 	open_files(*data, data->io);
 	data->fd = create_pipes(*data);
+	data->doc_flag = 0;
 }
 
 int	**create_pipes(t_pipex data)
@@ -71,7 +72,10 @@ void	handle_child_process(t_pipex data, int index, char *cmd, char **splited)
 		error_handling(data, 2);
 	else if (pid == 0)
 	{
-		dup_fd(data.fd, data.io, index, data.argc);
+		if (data.doc_flag == 1)
+			dup_here_doc_fd(data.fd, data.io, index, data.argc);
+		else
+			dup_fd(data.fd, data.io, index, data.argc);
 		close_fds(data);
 		ft_free_matrix(data.path);
 		execve(cmd, splited, data.envp);

@@ -34,6 +34,7 @@ typedef struct s_pipex
 	int		argc;
 	char	**argv;
 	char	**envp;
+	int		doc_flag;
 }	t_pipex;
 
 void	init_pipex(t_pipex *data, int argc, char **argv, char **envp);
@@ -48,7 +49,9 @@ void	handle_child_process(t_pipex data, int index, char *cmd, char **spt);
 void	pipex(t_pipex data);
 char	*find_executable_path(t_pipex data, char *command);
 char	**find_paths(char **envp);
-
+void	dup_here_doc_fd(int **fd, int *io, int index, int argc);
+void	open_here_doc(t_pipex data);
+void	here_doc(t_pipex data);
 
 // char	*find_executable_path(char *command, char **envp);
 

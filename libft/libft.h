@@ -76,5 +76,6 @@ void	ft_get_line(int fd, char **line);
 char	*ft_cut_str(char *line);
 char	*future_next_line(char *line);
 int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_join(char *line, char *buff);
 
 #endif
