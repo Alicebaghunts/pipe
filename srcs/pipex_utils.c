@@ -52,10 +52,14 @@ void	close_fds(t_pipex data)
 		}
 		free(data.fd);
 	}
-	// close(data.io[0]);	chem jogum xi xndir chi talis
-	//							vor sranq chen pakvum (
-	// close(data.io[1]);	bayc ashxatum aaaa 
-	// chnexves el senc ankap baneri hamar hrashq ;)
+}
+
+void	close_io(int *io)
+{
+	if (io[0] != -1)
+		close(io[0]);
+	if (io[1] != -1)
+		close(io[1]);
 }
 
 int	chechking_argument(char *str)

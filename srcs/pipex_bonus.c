@@ -82,6 +82,7 @@ void	handle_child_process(t_pipex data, int index, char *cmd, char **splited)
 		ft_free_matrix(splited);
 		perror(cmd);
 		free(cmd);
+		close_io(data.io);
 		exit(1);
 	}
 }
@@ -96,7 +97,10 @@ void	pipex(t_pipex data)
 	while (++index != data.argc - 1)
 	{
 		if (chechking_argument(data.argv[index]) == 0)
+		{
+			close_io(data.io);
 			error_handling(data, 0);
+		}
 		splited = ft_split(data.argv[index], ' ');
 		cmd = find_executable_path(data, splited[0]);
 		printf("%s\n", cmd);

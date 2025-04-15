@@ -79,5 +79,6 @@ int	main(int argc, char **argv, char **envp)
 	while (wait(NULL) != -1)
 		;
 	ft_free_matrix(data.path);
+	close_io(data.io);
 	return (0);
 }

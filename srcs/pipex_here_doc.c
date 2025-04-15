@@ -61,7 +61,10 @@ void	here_doc(t_pipex data)
 	while (++index != data.argc - 1)
 	{
 		if (chechking_argument(data.argv[index]) == 0)
+		{
+			close_io(data.io);
 			error_handling(data, 0);
+		}
 		splited = ft_split(data.argv[index], ' ');
 		cmd = find_executable_path(data, splited[0]);
 		handle_child_process(data, index, cmd, splited);

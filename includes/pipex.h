@@ -52,6 +52,7 @@ char	**find_paths(char **envp);
 void	dup_here_doc_fd(int **fd, int *io, int index, int argc);
 void	open_here_doc(t_pipex data);
 void	here_doc(t_pipex data);
+void	close_io(int *io);
 
 // char	*find_executable_path(char *command, char **envp);
 
