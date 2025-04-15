@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 12:42:03 by alisharu          #+#    #+#             */
-/*   Updated: 2025/04/11 20:22:52 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/04/15 02:00:09 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,10 @@ void	close_fds(t_pipex data)
 		}
 		free(data.fd);
 	}
-	close(data.io[0]);
-	close(data.io[1]);
+	// close(data.io[0]);	chem jogum xi xndir chi talis
+	//							vor sranq chen pakvum (
+	// close(data.io[1]);	bayc ashxatum aaaa 
+	// chnexves el senc ankap baneri hamar hrashq ;)
 }
 
 int	chechking_argument(char *str)
