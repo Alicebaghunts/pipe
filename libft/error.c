@@ -14,6 +14,6 @@
 
 void	error_handling(void)
 {
-	printf("Error\n");
+	ft_putstr_fd("Error\n", 1);
 	exit(1);
 }

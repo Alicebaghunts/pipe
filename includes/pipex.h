@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/02 09:58:35 by gcollet           #+#    #+#             */
-/*   Updated: 2025/04/11 15:00:10 by alisharu         ###   ########.fr       */
+/*   Created: 2025-04-16 11:04:02 by alisharu          #+#    #+#             */
+/*   Updated: 2025-04-16 11:04:02 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,5 @@ void	dup_here_doc_fd(int **fd, int *io, int index, int argc);
 void	open_here_doc(t_pipex data);
 void	here_doc(t_pipex data);
 void	close_io(int *io);
-
-// char	*find_executable_path(char *command, char **envp);
-
-char	*get_next_line(int fd);
-void	ft_get_line(int fd, char **line);
-char	*ft_cut_str(char *line);
-char	*future_next_line(char *line);
 
 #endif

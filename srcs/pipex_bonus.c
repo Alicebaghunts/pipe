@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/11 14:34:39 by alisharu          #+#    #+#             */
-/*   Updated: 2025/04/15 01:53:57 by aadyan           ###   ########.fr       */
+/*   Created: 2025-04-16 11:49:08 by alisharu          #+#    #+#             */
+/*   Updated: 2025-04-16 11:49:08 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,25 +103,8 @@ void	pipex(t_pipex data)
 		}
 		splited = ft_split(data.argv[index], ' ');
 		cmd = find_executable_path(data, splited[0]);
-		printf("%s\n", cmd);
 		handle_child_process(data, index, cmd, splited);
 		free(cmd);
 		ft_free_matrix(splited);
 	}
 }
-
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	t_pipex	data;
-
-// 	ft_memset(&data, 0, sizeof(t_pipex));
-// 	if (argc < 5)
-// 		error_handling(data, 6);
-// 	init_pipex(&data, argc, argv, envp);
-// 	pipex(data);
-// 	close_fds(data);
-// 	while (wait(NULL) != -1)
-// 		;
-// 	ft_free_matrix(data.path);
-// 	return (0);
-// }
