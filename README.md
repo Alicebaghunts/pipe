@@ -113,9 +113,8 @@ Pipex is a powerful utility program that mimics the shell's piping and redirecti
 - Appends the result to `output.txt`.
 
 
+  ---
   
-
-
 ## 📜 Understanding `dup`, `dup2`, and `dup3`
 
 When working on projects that involve file descriptors and redirection (like `pipex`), the `dup`, `dup2`, and `dup3` system calls play a crucial role. Here's a breakdown of what they do and how they differ:
@@ -146,7 +145,7 @@ When working on projects that involve file descriptors and redirection (like `pi
 
 ---
 
-### 🚀 `dup3` (Duplicate File Descriptor with Flags)
+### `dup3` (Duplicate File Descriptor with Flags)
 - **Purpose**: Like `dup2`, but allows additional flags for more control.
 - **Behavior**:
   - Supports the `O_CLOEXEC` flag to set the close-on-exec property.
@@ -198,3 +197,99 @@ int main() {
     return 0;
 }
 ```
+
+---
+
+## Understanding `fork()`
+The `fork()` system call is a fundamental concept in Unix-like operating systems. It is used to create a new process by duplicating the current process. Here’s everything you need to know about `fork()`:
+
+---
+
+### What is `fork()`?
+- The `fork()` system call is used to create a **child process** that runs concurrently with the **parent process**.
+- After calling `fork()`, two processes are created:
+  1. **Parent Process**: The original process that called `fork()`.
+  2. **Child Process**: A new process that is an exact copy of the parent process, except for a few differences (described below).
+
+---
+
+### How `fork()` Works
+- When `fork()` is called:
+  - The operating system creates a new process.
+  - The child process receives a copy of the parent process’s memory space, file descriptors, and execution state.
+- The `fork()` system call returns:
+  - **0** to the child process.
+  - **The child's process ID (PID)** to the parent process.
+  - **-1** if the `fork()` call fails (e.g., due to resource limits).
+
+---
+
+### Example Code
+```c
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+
+int main() {
+    pid_t pid = fork(); // Create a new process
+
+    if (pid < 0) {
+        // Fork failed
+        perror("Fork failed");
+        return 1;
+    } else if (pid == 0) {
+        // Code executed by the child process
+        printf("Hello from the child process! PID: %d\n", getpid());
+    } else {
+        // Code executed by the parent process
+        printf("Hello from the parent process! PID: %d, Child PID: %d\n", getpid(), pid);
+    }
+
+    return 0;
+}
+```
+
+---
+
+### 📊 Key Characteristics of `fork()`
+| Feature                       | Parent Process                          | Child Process                          |
+|-------------------------------|-----------------------------------------|-----------------------------------------|
+| **Memory**                    | Shares a copy of its memory.            | Receives a copy of the parent’s memory. |
+| **Process ID** (PID)          | Retains its original PID.               | Gets a new, unique PID.                |
+| **File Descriptors**          | Shares file descriptors with the child. | Inherits the parent’s file descriptors.|
+| **Execution**                 | Continues execution after `fork()`.     | Starts execution after `fork()`.       |
+
+---
+
+### Use Cases of `fork()`
+1. **Creating a New Process**:
+   - `fork()` is used to create a separate process for tasks like running a new program.
+2. **Piping and Redirection**:
+   - Commonly used in conjunction with `exec()` and `pipe()` to build features like shells and command pipelines.
+3. **Concurrent Execution**:
+   - Allows parallel execution of tasks in both parent and child processes.
+
+---
+
+### 🚩 Notes and Caveats
+- **Resource Usage**:
+  - Each `fork()` creates a new process, which consumes system resources like memory and CPU.
+- **Zombie Processes**:
+  - When a child process terminates, it becomes a "zombie" until the parent process calls `wait()` to retrieve its exit status.
+- **Error Handling**:
+  - Always check the return value of `fork()` to handle errors properly.
+
+---
+
+### 🔗 Related System Calls
+1. **`exec()`**:
+   - Replaces the current process image with a new program.
+   - Often used in combination with `fork()` to run a new program in the child process.
+2. **`wait()`**:
+   - Used by the parent process to wait for the child process to terminate.
+3. **`pipe()`**:
+   - Used to establish inter-process communication between parent and child processes.
+
+---
+
+By mastering `fork()`, you gain the ability to build powerful concurrent applications, enabling features like multi-processing, efficient resource management, and inter-process communication. 🚀
