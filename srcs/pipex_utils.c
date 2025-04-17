@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alisharu <marvin@42.fr>                    #+#  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-04-16 11:03:03 by alisharu          #+#    #+#             */
-/*   Updated: 2025-04-16 11:03:03 by alisharu         ###   ########.fr       */
+/*   Created: 2025/04/16 11:03:03 by alisharu          #+#    #+#             */
+/*   Updated: 2025/04/17 14:05:47 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	error_handling(t_pipex data, int num)
 	else if (num == 5)
 		ft_putstr_fd("❌ \033[31mError: Failed to run command\e[0m\n", 2);
 	else if (num == 6)
-		ft_putstr_fd("❌ \033[31mError: Invslid input\e[0m\n", 2);
+		ft_putstr_fd("❌ \033[31mError: Invalid input\e[0m\n", 2);
 	else if (num == 7)
 		ft_putstr_fd("❌ \033[31mError: Malloc failed\e[0m\n", 2);
 	close_fds(data);

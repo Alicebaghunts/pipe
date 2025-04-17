@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alisharu <marvin@42.fr>                    #+#  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-04-16 11:04:02 by alisharu          #+#    #+#             */
-/*   Updated: 2025-04-16 11:04:02 by alisharu         ###   ########.fr       */
+/*   Created: 2025/04/16 11:04:02 by alisharu          #+#    #+#             */
+/*   Updated: 2025/04/17 14:11:16 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define INVALID_PATH 4
 # define EXECVE_ERROR 5
 # define INVALID_INPUT 6
+# define MALLOC_ERROR 7
 
 typedef struct s_pipex
 {

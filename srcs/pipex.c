@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alisharu <marvin@42.fr>                    #+#  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-04-16 11:56:38 by alisharu          #+#    #+#             */
-/*   Updated: 2025-04-16 11:56:38 by alisharu         ###   ########.fr       */
+/*   Created: 2025/04/16 11:56:38 by alisharu          #+#    #+#             */
+/*   Updated: 2025/04/17 14:07:33 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ int	main(int argc, char **argv, char **envp)
 	data.io[0] = -1;
 	data.io[1] = -1;
 	if (argc < 5)
-		error_handling(data, 6);
+		error_handling(data, INVALID_INPUT);
 	init_pipex(&data, argc, argv, envp);
-	if (argc >= 6 && (strcmp("here_doc", argv[1]) == 0))
+	if (strcmp("here_doc", argv[1]) == 0)
 	{
+		if (argc < 6)
+			error_handling(data, INVALID_INPUT);
 		data.doc_flag = 1;
 		here_doc(data);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alisharu <marvin@42.fr>                    #+#  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-04-16 11:03:29 by alisharu          #+#    #+#             */
-/*   Updated: 2025-04-16 11:03:29 by alisharu         ###   ########.fr       */
+/*   Created: 2025/04/16 11:03:29 by alisharu          #+#    #+#             */
+/*   Updated: 2025/04/17 14:13:16 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ void	open_files(t_pipex data, int io[2])
 		io[1] = open(data.argv[data.argc - 1],
 				O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (io[1] == -1)
-			error_handling(data, 3);
+			error_handling(data, OPEN_FILE_ERROR);
 		return ;
 	}
 	io[0] = open(data.argv[1], O_RDONLY);
 	if (io[0] == -1)
-		error_handling(data, 3);
+		error_handling(data, OPEN_FILE_ERROR);
 	io[1] = open (data.argv[data.argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (io[1] == -1)
-		error_handling(data, 3);
+		error_handling(data, OPEN_FILE_ERROR);
 }
 
 char	**find_paths(char **envp)

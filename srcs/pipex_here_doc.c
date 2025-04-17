@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_here_doc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alisharu <marvin@42.fr>                    #+#  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-04-16 11:03:40 by alisharu          #+#    #+#             */
-/*   Updated: 2025-04-16 11:03:40 by alisharu         ###   ########.fr       */
+/*   Created: 2025/04/16 11:03:40 by alisharu          #+#    #+#             */
+/*   Updated: 2025/04/17 14:06:48 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	here_doc(t_pipex data)
 		if (chechking_argument(data.argv[index]) == 0)
 		{
 			close_io(data.io);
-			error_handling(data, 0);
+			error_handling(data, INVALID_ARGUMENT);
 		}
 		splited = ft_split(data.argv[index], ' ');
 		cmd = find_executable_path(data, splited[0]);

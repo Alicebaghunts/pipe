@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alisharu <marvin@42.fr>                    #+#  +:+       +#+        */
+/*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-04-16 11:49:08 by alisharu          #+#    #+#             */
-/*   Updated: 2025-04-16 11:49:08 by alisharu         ###   ########.fr       */
+/*   Created: 2025/04/16 11:49:08 by alisharu          #+#    #+#             */
+/*   Updated: 2025/04/17 14:12:35 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ int	**create_pipes(t_pipex data)
 	i = 0;
 	pxik = malloc(sizeof(int *) * (data.argc - 4));
 	if (pxik == NULL)
-		error_handling(data, 7);
+		error_handling(data, MALLOC_ERROR);
 	while (i < data.argc - 4)
 	{
 		pxik[i] = malloc(sizeof(int) * 2);
 		if (pxik[i] == NULL)
-			error_handling(data, 7);
+			error_handling(data, MALLOC_ERROR);
 		if (pipe(pxik[i]) == -1)
-			error_handling(data, 1);
+			error_handling(data, PIPE_ERROR);
 		i++;
 	}
 	return (pxik);
@@ -69,7 +69,7 @@ void	handle_child_process(t_pipex data, int index, char *cmd, char **splited)
 
 	pid = fork();
 	if (pid == -1)
-		error_handling(data, 2);
+		error_handling(data, FORK_ERROR);
 	else if (pid == 0)
 	{
 		if (data.doc_flag == 1)
@@ -99,7 +99,7 @@ void	pipex(t_pipex data)
 		if (chechking_argument(data.argv[index]) == 0)
 		{
 			close_io(data.io);
-			error_handling(data, 0);
+			error_handling(data, INVALID_ARGUMENT);
 		}
 		splited = ft_split(data.argv[index], ' ');
 		cmd = find_executable_path(data, splited[0]);
