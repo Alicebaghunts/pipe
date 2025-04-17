@@ -120,7 +120,7 @@ Pipex is a powerful utility program that mimics the shell's piping and redirecti
 
 When working on projects that involve file descriptors and redirection (like `pipex`), the `dup`, `dup2`, and `dup3` system calls play a crucial role. Here's a breakdown of what they do and how they differ:
 
-### 🔄 `dup` (Duplicate File Descriptor)
+### `dup` (Duplicate File Descriptor)
 - **Purpose**: Creates a copy of an existing file descriptor.
 - **Behavior**:
   - Returns the lowest available file descriptor.
@@ -133,7 +133,7 @@ When working on projects that involve file descriptors and redirection (like `pi
 
 ---
 
-### 🎯 `dup2` (Duplicate File Descriptor to a Specific Target)
+### `dup2` (Duplicate File Descriptor to a Specific Target)
 - **Purpose**: Copies an existing file descriptor to a specific target file descriptor.
 - **Behavior**:
   - If the target file descriptor (`newfd`) is already open, it will close it first.
@@ -160,12 +160,12 @@ When working on projects that involve file descriptors and redirection (like `pi
 ---
 
 ### 🔍 Key Differences
-| Feature         | `dup`               | `dup2`              | `dup3`                   |
-|------------------|---------------------|---------------------|--------------------------|
-| **Target FD**    | Chosen by the OS    | User-specified      | User-specified           |
-| **Closes Target**| No                  | Yes                 | Yes                      |
-| **Flags Support**| No                  | No                  | Yes (`O_CLOEXEC`)        |
-| **Use Case**     | General duplication| Redirecting streams | Advanced duplication with flags |
+| Feature          | `dup`               | `dup2`              | `dup3`                          |
+|------------------|---------------------|---------------------|---------------------------------|
+| **Target FD**    | Chosen by the OS    | User-specified      | User-specified                  |
+| **Closes Target**| No                  | Yes                 | Yes                             |
+| **Flags Support**| No                  | No                  | Yes (`O_CLOEXEC`)               |
+| **Use Case**     | General duplication | Redirecting streams | Advanced duplication with flags |
 
 ---
 
