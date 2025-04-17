@@ -40,6 +40,16 @@ Pipex is a powerful utility program that mimics the shell's piping and redirecti
 
 ## 🚀 How to Use
 
+---
+My Makefile
+---
+![image](https://github.com/user-attachments/assets/adb362d6-ec5b-4b87-8d61-deb349673363)
+
+Make help;
+
+![image](https://github.com/user-attachments/assets/0db9d4aa-beea-4e35-9f00-d29ca9e82408)
+
+
 ### Mandatory Program
 1. Compile the project using the following command:
    ```bash
