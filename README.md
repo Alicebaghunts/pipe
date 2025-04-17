@@ -89,18 +89,6 @@ Pipex is a powerful utility program that mimics the shell's piping and redirecti
 3. **Here Document**:
    - Redirects input directly from the terminal until a specific `limiter` is reached (bonus).
 
----
-
-## 📂 File Structure
-
-- `pipex.c`: Core implementation of the program.
-- `bonus/`: Contains the bonus program logic.
-- `Makefile`: Build automation tool.
-
----
-
-## 🧪 Examples
-
 ### Mandatory Example
 ```bash
 ./pipex input.txt "ls -l" "grep pipex" output.txt
@@ -116,7 +104,7 @@ Pipex is a powerful utility program that mimics the shell's piping and redirecti
 - Processes `input.txt` through `cat`, `grep`, and `wc`.
 - Saves the result to `output.txt`.
 
-### Here Document Example
+### Here Doc Example
 ```bash
 ./pipex here_doc END "cat" "grep hello" "wc -l" output.txt
 ```
@@ -126,3 +114,87 @@ Pipex is a powerful utility program that mimics the shell's piping and redirecti
 
 
   
+
+
+## 📜 Understanding `dup`, `dup2`, and `dup3`
+
+When working on projects that involve file descriptors and redirection (like `pipex`), the `dup`, `dup2`, and `dup3` system calls play a crucial role. Here's a breakdown of what they do and how they differ:
+
+### 🔄 `dup` (Duplicate File Descriptor)
+- **Purpose**: Creates a copy of an existing file descriptor.
+- **Behavior**:
+  - Returns the lowest available file descriptor.
+  - Both the original and the duplicate file descriptors point to the same file description (same offset, permissions, etc.).
+- **Usage Example**:
+  ```c
+  int fd_copy = dup(fd);
+  ```
+- **Use Case**: Redirecting output/input by duplicating file descriptors.
+
+---
+
+### 🎯 `dup2` (Duplicate File Descriptor to a Specific Target)
+- **Purpose**: Copies an existing file descriptor to a specific target file descriptor.
+- **Behavior**:
+  - If the target file descriptor (`newfd`) is already open, it will close it first.
+  - If `newfd` is the same as the source file descriptor, the system call does nothing and just returns `newfd`.
+- **Usage Example**:
+  ```c
+  int result = dup2(fd, newfd);
+  ```
+- **Use Case**: Redirecting file descriptors to specific targets (e.g., making `STDOUT_FILENO` point to a file).
+
+---
+
+### 🚀 `dup3` (Duplicate File Descriptor with Flags)
+- **Purpose**: Like `dup2`, but allows additional flags for more control.
+- **Behavior**:
+  - Supports the `O_CLOEXEC` flag to set the close-on-exec property.
+  - Safer than `dup2` as it avoids race conditions when setting the `O_CLOEXEC` flag manually.
+- **Usage Example**:
+  ```c
+  int result = dup3(fd, newfd, O_CLOEXEC);
+  ```
+- **Use Case**: When you need to duplicate file descriptors with additional options for modern applications.
+
+---
+
+### 🔍 Key Differences
+| Feature         | `dup`               | `dup2`              | `dup3`                   |
+|------------------|---------------------|---------------------|--------------------------|
+| **Target FD**    | Chosen by the OS    | User-specified      | User-specified           |
+| **Closes Target**| No                  | Yes                 | Yes                      |
+| **Flags Support**| No                  | No                  | Yes (`O_CLOEXEC`)        |
+| **Use Case**     | General duplication| Redirecting streams | Advanced duplication with flags |
+
+---
+
+### 🛠 Example Code
+```c
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+
+int main() {
+    int fd = open("output.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+
+    // Using dup
+    int fd_dup = dup(fd);
+
+    // Using dup2
+    dup2(fd, STDOUT_FILENO);
+
+    // Using dup3
+    int fd_dup3 = dup3(fd, 100, O_CLOEXEC);
+
+    // Now, you can write to fd_dup, STDOUT_FILENO, or fd_dup3
+    write(fd_dup, "Hello from dup!\n", 16);
+    write(STDOUT_FILENO, "Hello from dup2!\n", 18);
+    write(fd_dup3, "Hello from dup3!\n", 18);
+
+    close(fd);
+    close(fd_dup);
+    close(fd_dup3);
+    return 0;
+}
+```
