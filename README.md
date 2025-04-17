@@ -209,6 +209,8 @@ int main() {
 ```
 
 ---
+---
+---
 
 ## Understanding `fork()`
 The `fork()` system call is a fundamental concept in Unix-like operating systems. It is used to create a new process by duplicating the current process. Here’s everything you need to know about `fork()`:
@@ -291,7 +293,7 @@ int main() {
 
 ---
 
-### 🔗 Related System Calls
+###  Related System Calls
 1. **`exec()`**:
    - Replaces the current process image with a new program.
    - Often used in combination with `fork()` to run a new program in the child process.
@@ -301,7 +303,8 @@ int main() {
    - Used to establish inter-process communication between parent and child processes.
 
 ---
-
+---
+---
 
 
 
