@@ -39,7 +39,7 @@ Pipex is a powerful utility program that mimics the shell's piping and redirecti
 ---
 
 ## 🚀 How to Use
-
+---
 ---
 My Makefile
 ---
@@ -49,6 +49,8 @@ Make help;
 
 ![image](https://github.com/user-attachments/assets/0db9d4aa-beea-4e35-9f00-d29ca9e82408)
 
+---
+---
 
 ### Mandatory Program
 1. Compile the project using the following command:
@@ -124,8 +126,9 @@ Make help;
 
 
   ---
-  
-## 📜 Understanding `dup`, `dup2`, and `dup3`
+  ---
+  ---
+## Understanding `dup`, `dup2`, and `dup3`
 
 When working on projects that involve file descriptors and redirection (like `pipex`), the `dup`, `dup2`, and `dup3` system calls play a crucial role. Here's a breakdown of what they do and how they differ:
 
