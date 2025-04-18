@@ -6,7 +6,7 @@
 /*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 11:56:38 by alisharu          #+#    #+#             */
-/*   Updated: 2025/04/17 14:07:33 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/04/18 20:47:14 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex	data;
 
 	ft_memset(&data, 0, sizeof(t_pipex));
-	data.io[0] = -1;
-	data.io[1] = -1;
 	if (argc < 5)
 		error_handling(data, INVALID_INPUT);
 	init_pipex(&data, argc, argv, envp);

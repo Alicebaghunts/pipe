@@ -6,7 +6,7 @@
 /*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 11:03:03 by alisharu          #+#    #+#             */
-/*   Updated: 2025/04/17 14:05:47 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/04/18 20:48:01 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 
 void	error_handling(t_pipex data, int num)
 {
-	if (num == 0)
-		ft_putstr_fd("❌ \033[31mError: Invalid argument\e[0m\n", 2);
-	else if (num == 1)
+	if (num == 1)
 		ft_putstr_fd("❌ \033[31mError: Failed to create pipe\e[0m\n", 2);
 	else if (num == 2)
 		ft_putstr_fd("❌ \033[31mError: Failed to create child\e[0m\n", 2);
 	else if (num == 3)
 		ft_putstr_fd("❌ \033[31mError: Failed to open file\e[0m\n", 2);
 	else if (num == 4)
-		ft_putstr_fd("❌ \033[31mError: Invalid path\e[0m\n", 2);
+		ft_putstr_fd("❌ \033[31mError: Invalid argument\e[0m\n", 2);
 	else if (num == 5)
 		ft_putstr_fd("❌ \033[31mError: Failed to run command\e[0m\n", 2);
 	else if (num == 6)

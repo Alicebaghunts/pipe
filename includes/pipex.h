@@ -6,7 +6,7 @@
 /*   By: alisharu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 11:04:02 by alisharu          #+#    #+#             */
-/*   Updated: 2025/04/17 14:11:16 by alisharu         ###   ########.fr       */
+/*   Updated: 2025/04/18 20:52:02 by alisharu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@
 # include <fcntl.h>
 # include "../libft/libft.h"
 
-# define INVALID_ARGUMENT 0
 # define PIPE_ERROR 1
 # define FORK_ERROR 2
 # define OPEN_FILE_ERROR 3
-# define INVALID_PATH 4
+# define INVALID_ARGUMENT 4
 # define EXECVE_ERROR 5
 # define INVALID_INPUT 6
 # define MALLOC_ERROR 7
