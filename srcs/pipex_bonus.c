@@ -37,21 +37,21 @@ void	init_pipex(t_pipex *data, int argc, char **argv, char **envp)
 	data->argv = argv;
 	data->envp = envp;
 	data->path = find_paths(envp);
-	open_files(*data, data->io);
-	data->fd = create_pipes(*data);
+	open_files(data, data->io);
+	data->fd = create_pipes(data);
 	data->doc_flag = 0;
 }
 
-int	**create_pipes(t_pipex data)
+int	**create_pipes(t_pipex *data)
 {
 	int	i;
 	int	**pxik;
 
 	i = 0;
-	pxik = malloc(sizeof(int *) * (data.argc - 4));
+	pxik = malloc(sizeof(int *) * (data->argc - 4));
 	if (pxik == NULL)
 		error_handling(data, MALLOC_ERROR);
-	while (i < data.argc - 4)
+	while (i < data->argc - 4)
 	{
 		pxik[i] = malloc(sizeof(int) * 2);
 		if (pxik[i] == NULL)
@@ -63,7 +63,7 @@ int	**create_pipes(t_pipex data)
 	return (pxik);
 }
 
-void	handle_child_process(t_pipex data, int index, char *cmd, char **splited)
+void	handle_child_process(t_pipex *data, int index, char *cmd, char **splt)
 {
 	pid_t	pid;
 
@@ -72,39 +72,44 @@ void	handle_child_process(t_pipex data, int index, char *cmd, char **splited)
 		error_handling(data, FORK_ERROR);
 	else if (pid == 0)
 	{
-		if (data.doc_flag == 1)
-			dup_here_doc_fd(data.fd, data.io, index, data.argc);
+		if (data->doc_flag == 1)
+			dup_here_doc_fd(data->fd, data->io, index, data->argc);
 		else
-			dup_fd(data.fd, data.io, index, data.argc);
+			dup_fd(data->fd, data->io, index, data->argc);
+		ft_free_matrix(&data->path);
+		data->path = NULL;
+		if (execve(cmd, splt, data->envp) != 0)
+		{
+			ft_free_matrix(&splt);
+			free(cmd);
+			error_handling(data, IVALID_COMMAND);
+		}
 		close_fds(data);
-		ft_free_matrix(data.path);
-		execve(cmd, splited, data.envp);
-		ft_free_matrix(splited);
-		perror(cmd);
+		ft_free_matrix(&splt);
 		free(cmd);
-		close_io(data.io);
+		close_io(data->io);
 		exit(1);
 	}
 }
 
-void	pipex(t_pipex data)
+void	pipex(t_pipex *data)
 {
 	int		index;
 	char	*cmd;
 	char	**splited;
 
 	index = 1;
-	while (++index != data.argc - 1)
+	while (++index != data->argc - 1)
 	{
-		if (chechking_argument(data.argv[index]) == 0)
+		if (chechking_argument(data->argv[index]) == 0)
 		{
-			close_io(data.io);
+			close_io(data->io);
 			error_handling(data, INVALID_ARGUMENT);
 		}
-		splited = ft_split(data.argv[index], ' ');
+		splited = ft_split(data->argv[index], ' ');
 		cmd = find_executable_path(data, splited[0]);
 		handle_child_process(data, index, cmd, splited);
 		free(cmd);
-		ft_free_matrix(splited);
+		ft_free_matrix(&splited);
 	}
 }

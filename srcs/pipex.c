@@ -14,17 +14,20 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_pipex	data;
+	t_pipex	*data;
 
-	ft_memset(&data, 0, sizeof(t_pipex));
+	data = malloc(sizeof(t_pipex));
+	if (!data)
+		error_handling(data, MALLOC_ERROR);
+	ft_memset(data, 0, sizeof(t_pipex));
 	if (argc < 5)
 		error_handling(data, INVALID_INPUT);
-	init_pipex(&data, argc, argv, envp);
-	if (strcmp("here_doc", argv[1]) == 0)
+	init_pipex(data, argc, argv, envp);
+	if (ft_strcmp("here_doc", argv[1]) == 0)
 	{
 		if (argc < 6)
 			error_handling(data, INVALID_INPUT);
-		data.doc_flag = 1;
+		data->doc_flag = 1;
 		here_doc(data);
 	}
 	else
@@ -32,7 +35,8 @@ int	main(int argc, char **argv, char **envp)
 	close_fds(data);
 	while (wait(NULL) != -1)
 		;
-	ft_free_matrix(data.path);
-	close_io(data.io);
+	ft_free_matrix(&data->path);
+	close_io(data->io);
+	free(data);
 	return (0);
 }
