@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-#include <stdlib.h>
 
-void	error_handling(t_pipex *data, int num)
+void	error_handling(t_pipex data, int num)
 {
 	if (num == 1)
 		ft_putstr_fd("❌ \033[31mError: Failed to create pipe\e[0m\n", 2);
@@ -29,32 +28,27 @@ void	error_handling(t_pipex *data, int num)
 		ft_putstr_fd("❌ \033[31mError: Invalid input\e[0m\n", 2);
 	else if (num == 7)
 		ft_putstr_fd("❌ \033[31mError: Malloc failed\e[0m\n", 2);
-	else if (num == 8)
-		ft_putstr_fd("❌ \033[31mError: Command not found\e[0m\n", 2);
 	close_fds(data);
-	if (data->path)
-		ft_free_matrix(&data->path);
-	if (data)
-		free(data);
+	if (data.path)
+		ft_free_matrix(data.path);
 	exit(num);
 }
 
-void	close_fds(t_pipex *data)
+void	close_fds(t_pipex data)
 {
 	int	i;
 
 	i = 0;
-	if (data->fd)
+	if (data.fd)
 	{
-		while (i != data->argc - 4)
+		while (i != data.argc - 4)
 		{
-			close(data->fd[i][0]);
-			close(data->fd[i][1]);
-			free(data->fd[i]);
+			close(data.fd[i][0]);
+			close(data.fd[i][1]);
+			free(data.fd[i]);
 			i++;
 		}
-		free(data->fd);
-		data->fd = NULL;
+		free(data.fd);
 	}
 }
 
@@ -78,15 +72,14 @@ int	chechking_argument(char *str)
 	return (1);
 }
 
-void	ft_free_matrix(char ***arr)
+void	ft_free_matrix(char **arr)
 {
 	int	i;
 
 	i = 0;
-	if (!*arr)
+	if (!arr)
 		return ;
-	while ((*arr)[i])
-		free((*arr)[i++]);
-	free(*arr);
-	*arr = NULL;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
 }
