@@ -12,18 +12,18 @@
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_list **lst, t_list *new_node)
 {
 	t_list	*tmp;
 
 	tmp = *lst;
-	if (new == NULL)
+	if (new_node == NULL)
 		return ;
 	if (*lst == NULL)
 	{
-		*lst = new;
+		*lst = new_node;
 		return ;
 	}
 	tmp = ft_lstlast(tmp);
-	tmp -> next = new;
+	tmp -> next = new_node;
 }

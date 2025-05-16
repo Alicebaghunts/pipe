@@ -12,7 +12,7 @@
 
 #include "../includes/pipex.h"
 
-void	error_handling(t_pipex data, int num)
+void	error_handling(t_pipex *data, int num)
 {
 	if (num == 1)
 		ft_putstr_fd("❌ \033[31mError: Failed to create pipe\e[0m\n", 2);
@@ -28,27 +28,36 @@ void	error_handling(t_pipex data, int num)
 		ft_putstr_fd("❌ \033[31mError: Invalid input\e[0m\n", 2);
 	else if (num == 7)
 		ft_putstr_fd("❌ \033[31mError: Malloc failed\e[0m\n", 2);
+	else if (num == 8)
+		ft_putstr_fd("❌ \033[31mError: Command not found\e[0m\n", 2);
 	close_fds(data);
-	if (data.path)
-		ft_free_matrix(data.path);
+	if (data->path)
+		ft_free_matrix(data->path);
+	if (data)
+		free(data);
 	exit(num);
 }
 
-void	close_fds(t_pipex data)
+void	close_fds(t_pipex *data)
 {
 	int	i;
 
 	i = 0;
-	if (data.fd)
+	if (data->fd != NULL)
 	{
-		while (i != data.argc - 4)
+		while (i < data->argc - 4)
 		{
-			close(data.fd[i][0]);
-			close(data.fd[i][1]);
-			free(data.fd[i]);
+			if (data->fd[i] != NULL)
+			{
+				close(data->fd[i][0]);
+				close(data->fd[i][1]);
+				free(data->fd[i]);
+				data->fd[i] = NULL;
+			}
 			i++;
 		}
-		free(data.fd);
+		free(data->fd);
+		data->fd = NULL;
 	}
 }
 
